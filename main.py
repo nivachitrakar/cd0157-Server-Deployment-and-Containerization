@@ -69,13 +69,15 @@ def auth():
     """
     request_data = request.get_json()
     email = request_data.get('email')
+    print("email----", email)
     password = request_data.get('password')
+    print("password----", password)
     if not email:
         LOG.error("No email provided")
-        return jsonify({"message": "Missing parameter: email"}, 400)
+        abort(401, description="No email provided")
     if not password:
         LOG.error("No password provided")
-        return jsonify({"message": "Missing parameter: password"}, 400)
+        abort(401, description="No password provided")
     body = {'email': email, 'password': password}
 
     user_data = body

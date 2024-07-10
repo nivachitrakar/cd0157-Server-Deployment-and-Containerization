@@ -38,3 +38,14 @@ def test_auth(client):
     assert response.status_code == 200
     token = response.json['token']
     assert token is not None
+
+
+def test_auth_invalid(client):
+    # Test case for invalid authentication
+    body = {'email': '',
+            'password': 'password'}
+    response = client.post('/auth',
+                           data=json.dumps(body),
+                           content_type='application/json')
+
+    assert response.status_code == 401
